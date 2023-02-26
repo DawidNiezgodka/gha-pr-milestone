@@ -1,0 +1,12 @@
+name: pr milestone
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  milestone:
+    runs-on: ubuntu-latest
+    steps:
+      - name: secret
+        uses: ./.github/actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
