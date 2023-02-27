@@ -31,7 +31,7 @@ while [ "$URL" ]; do
   # with a token value provided by the $GITHUB_TOKEN variable.
   # The output of the command is then stored in the variable $RESPONSE.
   RESPONSE=$(curl -i -S -H "Authorization: token $GITHUB_TOKEN" "$URL")
-  echo "Response is: $RESPONSE"
+  #echo "Response is: $RESPONSE"
   # HEADERS=$(echo "$RESPONSE" | sed '/^\r$/q'): This line uses the echo command
   # to print the contents of the $RESPONSE variable,
   # and then pipes it to the sed command.
@@ -40,10 +40,10 @@ while [ "$URL" ]; do
   # (which signals the end of the headers).
   # The output is then stored in the variable $HEADERS.
   HEADERS=$(echo "$RESPONSE" | sed '/^\r$/q')
-  echo "Headers are: $HEADERS"
+  #echo "Headers are: $HEADERS"
   #URL=$(echo "$HEADERS" | grep '^Link:' | sed -e 's/^Link:.*<\(.*\)>;.*$/\1/')
   URL=$(echo "$HEADERS" | sed -n -E 's/^Link:.*<(.*?)>; rel="next".*$/\1/p')
-  echo "URL is: $URL"
+  #echo "URL is: $URL"
   # PULLS="$PULLS$(echo "$RESPONSE" | sed -e '/^\r$/d')":
   # This command appends the output of the sed command to the $PULLS variable.
   # The syntax $PULLS$(...) appends the output of the command inside
