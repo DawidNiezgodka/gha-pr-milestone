@@ -70,10 +70,6 @@ PR_AUTHOR=$(jq -r ".pull_request.user.login" $GITHUB_EVENT_PATH)
 #tr -d '[:space]': This command removes any whitespace characters from the input that it receives.
 MERGED_COUNT=$(echo $PULLS | jq -c ".[] | select(.merged_at != null) | select(.user.login == \"$PR_AUTHOR\")" | wc -l | tr -d '[:space]')
 
-INPUT_MERGED_1="Nice"
-INPUT_MERGED_5="Good work!"
-INPUT_MERGED_10="Great job!"
-
 # This line creates a new variable called COMMENT_VAR,
 # which is set to a string that is the concatenation of "INPUT_MERGED_"
 # and the value of another variable called MERGED_COUNT.
