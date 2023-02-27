@@ -11,3 +11,8 @@ jobs:
         uses: ./.github/actions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          merged_1: "Congratulations on merging your first pull request! We here at the bot team are proud of you!"
+          merged_2: "Wow, you merged your second pull request already? You must be really good at this!"
+          merged_5: "You merged 5 pull requests already? You must be the smartest person in the world!"
+          merged_10: "You merged 10 pull requests already? You must be the smartest person in the world and have the greatest memory!"
