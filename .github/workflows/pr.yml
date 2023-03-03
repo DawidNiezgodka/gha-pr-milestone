@@ -6,9 +6,11 @@ jobs:
   milestone:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: secret
-        uses: ./.github/actions
+        uses: ./.github/actions/nodeaction
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

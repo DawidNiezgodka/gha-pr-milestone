@@ -1,0 +1,5 @@
+name: pr milestone
+description: The milestone of the pull request
+runs:
+  using: docker
+  image: Dockerfile

@@ -22,29 +22,29 @@ if [[ "$MERGED" != "true" ]]; then
 fi
 
 PULLS=""
-URL="https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=closed&per_page=100"
+URL="https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPOSITORY/pulls?state=closed&per_page=100"
+echo "Calling: $URL"
 while [ "$URL" ]; do
-  # RESPONSE=$(curl -i -S -H "Authorization: token $GITHUB_TOKEN" "$URL"):
   # This line uses the curl command to make an HTTP request to the URL specified by $URL.
   # The options used are -i to include the response headers in the output,
   # -S to show error messages, and -H to include an Authorization header
   # with a token value provided by the $GITHUB_TOKEN variable.
   # The output of the command is then stored in the variable $RESPONSE.
   RESPONSE=$(curl -i -S -H "Authorization: token $GITHUB_TOKEN" "$URL")
-  #echo "Response is: $RESPONSE"
-  # HEADERS=$(echo "$RESPONSE" | sed '/^\r$/q'): This line uses the echo command
-  # to print the contents of the $RESPONSE variable,
-  # and then pipes it to the sed command.
-  # The sed command is used to filter out everything except the response
-  # headers by matching and printing lines up to the first empty line
-  # (which signals the end of the headers).
-  # The output is then stored in the variable $HEADERS.
+
+
+  # Search for a line that contains only a carriage return character
+  # and exit the script as soon as such a line is found.
+  # ^: this matches the beginning of a line.
+  # \r: this matches a carriage return character, which is typically used as a line separator
+  # in some text files on Windows-based systems.
+  # $: this matches the end of a line.
   HEADERS=$(echo "$RESPONSE" | sed '/^\r$/q')
-  #echo "Headers are: $HEADERS"
+
+
   #URL=$(echo "$HEADERS" | grep '^Link:' | sed -e 's/^Link:.*<\(.*\)>;.*$/\1/')
   URL=$(echo "$HEADERS" | sed -n -E 's/^Link:.*<(.*?)>; rel="next".*$/\1/p')
-  #echo "URL is: $URL"
-  # PULLS="$PULLS$(echo "$RESPONSE" | sed -e '/^\r$/d')":
+  echo "URL is: $URL"
   # This command appends the output of the sed command to the $PULLS variable.
   # The syntax $PULLS$(...) appends the output of the command inside
   # the parentheses to the end of the existing value of the $PULLS variable.
