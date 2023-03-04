@@ -1,0 +1,8 @@
+name: my-toolkit-gen-action
+description: a test action that is generated with actions toolkit
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: activity
+  color: white

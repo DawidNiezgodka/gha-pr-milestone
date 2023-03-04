@@ -38,8 +38,6 @@ async function action() {
         state: "closed"
     });
 
-
-
     const expectedAuthor = payload.pull_request.user.login;
     console.log(`Looking for merged pull requests from ${expectedAuthor}`);
     pulls = pulls.filter((pull) => {
@@ -54,6 +52,28 @@ async function action() {
 
     const pullCount = pulls.length;
     console.log(`Found ${pullCount} merged pull requests from ${expectedAuthor}`);
+
+
+    const msg = core.getInput(`message-${pullCount}`, {required: false});
+    if(!msg) {
+        console.log(`No message found for ${pullCount} merged pull requests`);
+        return;
+    }
+
+    await octokit.rest.issues.createComment({
+        owner: github.context.repo.owner,
+        issue_number: github.context.issue.number,
+        repo: github.context.repo.repo,
+        body: msg
+    });
+
+    await octokit.rest.issues.addLabels({
+        owner: github.context.repo.owner,
+        issue_number: github.context.issue.number,
+        repo: github.context.repo.repo,
+        labels: ["merge-milestone", "merge-milestone-${pullCount}"]
+    });
+
 
 
 }

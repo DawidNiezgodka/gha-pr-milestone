@@ -12,7 +12,7 @@ jobs:
       - name: secret
         uses: ./.github/actions/nodeaction
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHjUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           merged_1: "Congratulations on merging your first pull request! We here at the bot team are proud of you!"
           merged_2: "Wow, you merged your second pull request already? You must be really good at this!"
