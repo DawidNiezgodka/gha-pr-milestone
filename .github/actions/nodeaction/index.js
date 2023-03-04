@@ -3,8 +3,12 @@ async function action() {
     const core = require('@actions/core');
     const github = require('@actions/github');
 
-    console.log(process);
     const event = process.env.GITHUB_EVENT_NAME;
+    // process.env.GITHUB_EVENT_PATH is an environment variable
+    // that contains the path to the file
+    // that contains information about the event that triggered the workflow.
+    // The GITHUB_EVENT_PATH environment variable is set by GitHub Actions and points to a file
+    // that contains a JSON payload with information about the event.
     const payload = require(process.env.GITHUB_EVENT_PATH);
 
     if (event !== "pull_request" || payload.action !== "closed") {
@@ -19,6 +23,39 @@ async function action() {
         core.warning("Pull request was closed without merging");
         return;
     }
+
+    // Creates an authenticated client object that can be used to perform various actions
+    // on behalf of the GitHub account that owns the PAT,
+    // such as creating issues, commenting on pull requests, etc.
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+    // const {data: pulls} uses object destructuring to extract the data property\
+    // from the response object returned by the octokit.pulls.list() method
+    // and assign it to the pulls variable.
+    // The data property contains an array of pull requests returned by the API.
+    let {data: pulls} = await octokit.rest.pulls.list({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        state: "closed"
+    });
+
+
+
+    const expectedAuthor = payload.pull_request.user.login;
+    console.log(`Looking for merged pull requests from ${expectedAuthor}`);
+    pulls = pulls.filter((pull) => {
+        console.log(`Pull with id ${pull.id} was merged at ${pull.merged_at}`);
+        if (!pull.merged_at) {
+            console.log(`Pull with id ${pull.id} was not merged.`);
+            return false;
+        }
+        console.log(`Pull with id ${pull.id} was merged by ${pull.user.login}`);
+        return pull.user.login === expectedAuthor;
+    })
+
+    const pullCount = pulls.length;
+    console.log(`Found ${pullCount} merged pull requests from ${expectedAuthor}`);
+
+
 }
 
 // This code checks whether the current module is the same object
