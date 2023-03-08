@@ -1,0 +1,18 @@
+name: milestone summary
+on:
+  schedule:
+    - cron: '0 3 * * 1' # every Monday at 3am
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: milestone summary
+        uses: ./.github/actions/scheduled-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          since: P1Y1M1DT1H1M11.11S # 1 year, 1 month, 1 day, 1 hour, 1 minute, 11.11 seconds ago

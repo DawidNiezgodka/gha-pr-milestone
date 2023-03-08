@@ -10,9 +10,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: secret
-        uses: ./.github/actions/nodeaction
+        uses: ./.github/actions/nodeactionwithtoolkit/myaction
         env:
-          GITHjUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           merged_1: "Congratulations on merging your first pull request! We here at the bot team are proud of you!"
           merged_2: "Wow, you merged your second pull request already? You must be really good at this!"

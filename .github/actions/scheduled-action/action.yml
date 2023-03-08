@@ -1,0 +1,8 @@
+name: scheduled-action
+description: a scheduled report of prs
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: activity
+  color: white
