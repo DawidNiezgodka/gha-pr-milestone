@@ -1,0 +1,16 @@
+name: show pulls
+on:
+  push:
+    branches:
+      - main
+jobs:
+    show-pulls:
+        runs-on: ubuntu-latest
+        steps:
+          - name: checkout
+            uses: actions/checkout@v2
+          - name: show pulls
+            uses: ./.github/actions/add-label-action
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

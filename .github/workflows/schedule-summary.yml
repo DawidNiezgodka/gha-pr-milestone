@@ -15,4 +15,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          since: P1Y1M1DT1H1M11.11S # 1 year, 1 month, 1 day, 1 hour, 1 minute, 11.11 seconds ago
+          since: P3D

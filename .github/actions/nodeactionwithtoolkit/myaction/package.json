@@ -1,0 +1,17 @@
+{
+  "name": "myaction",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "action-guard": "^0.2.0",
+    "actions-toolkit": "^6.0.1"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "nock": "^13.3.0"
+  }
+}

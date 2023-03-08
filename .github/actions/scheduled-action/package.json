@@ -1,0 +1,16 @@
+{
+  "name": "scheduled-action",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "actions-toolkit": "^6.0.1",
+    "iso8601-duration": "^2.1.1"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}

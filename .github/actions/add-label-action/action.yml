@@ -1,0 +1,8 @@
+name: add-label-action
+description: adds a label to the PRs with an odd issue number
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: activity
+  color: white
